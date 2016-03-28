@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+            var state = prompt("What state is your school in?!)");
+            var city = prompt("and what city specifically?");
+            $.getJSON("http://cooper-union-weather-proxy.herokuapp.com/weather/" + state + "/" + city, function(response){
+              console.log(response);
+              //example of outputting the current temperature in desired location
+              var currentTemp = response.current_observation.feelslike_f;
+            // if(currentTemp > 50) {
+            //   $("#temperature").append("It is warm out! ");
+            // } else {
+            //   $("#temperature").append("It is chilly out! ");
+            // }
+              $("#temperature").append("Right now it is "+
+            response.current_observation.feelslike_f + " degrees F in " + city + "," + state + ".");
+
+            // $('#temperature').css("color","yellow");
+            // $('#temperature').css("backgroundColor","black");
+            // $('#temperature').css("fontFamily","sans-serif");
+              //create image tag
+              var imageTag = '<img src ="'+response.current_observation.icon_url+ '"/>';
+
+              $('#imageWeather').append(imageTag);
+              $('#infoWeather').append(response.current_observation.weather);
+              $('#update').append(response.current_observation.observation_time);
+
+
+            })
+
+  </script>
+  <style>
+
+          body {
+            background-image:url(https://media.giphy.com/media/qTTivHloJIezu/giphy.gif);
+            font-family: Helvetica;
+
+          }
+
+          #temperature {
+            color: green;
+            background-color: red;
+            width: 500px;
+            font-size:25px;
+            padding:30px;
+            margin-left: 100px;
+            margin-top: 100px;
+            margin-bottom: 100px;
+          }
+
+          #imageWeather {
+            margin: 100px;
+            margin-top: 150px;
+            position: fixed;
+
+          }
+
+          #infoWeather {
+            margin: 50px;
+            font-size: 50px
+            font-weight:lighter;
+            width: 100px;
+            float: left;
+          }
+
+          #update {
+            font-family: Helvetica;
+            font-style: normal;
+            position: fixed;
+            margin-top: 400px;
+            margin-left: 160px;
+          }
+
+    </style>
+  </head>
+  <body>
+    <div id="temperature"></div>
+    <div id="imageWeather"></div>
+      <img src="http://onlocationtours.com/wp-content/uploads/2013/07/kingkongwebres.jpg">
+    <div id="infoWeather"></div>
+      <img src="http://www.arabianindustry.com/static/content/images/larger2/35990-358042.jpg">
+    <div id="update"></div>
+  </body>
+</html>
